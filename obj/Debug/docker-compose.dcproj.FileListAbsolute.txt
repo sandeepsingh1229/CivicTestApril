@@ -16,3 +16,4 @@ C:\Users\HP\source\repos\CivicTestApril\bin\Debug\Microsoft.Identity.Client.dll
 C:\Users\HP\source\repos\CivicTestApril\bin\Debug\CivicTestApril.pdb
 C:\Users\HP\source\repos\CivicTestApril\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 C:\Users\HP\source\repos\CivicTestApril\obj\Debug\docker-compose.dcproj.CopyComplete
+C:\Users\HP\source\repos\CivicTestApril2023\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
