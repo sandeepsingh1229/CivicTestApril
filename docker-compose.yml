@@ -1,0 +1,33 @@
+version: '3.4'
+
+networks:
+  civictestapril:
+
+services:
+   civivappdb:
+    container_name: app-db-civic
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 8005:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
+    networks:
+      - civictestapril  
+
+   civictestapril:
+     container_name: demo-civic-app
+     image: ${DOCKER_REGISTRY-}civictestapril
+     build:
+       context: .
+       dockerfile: CivicTestApril/Dockerfile
+     ports:
+      - 8004:80
+     depends_on:
+      - civivappdb
+     environment:
+      - DB_HOST=civivappdb
+      - DB_NAME=DemoCivicApp
+      - DB_SA_PASSWORD=password@12345#
+     networks:
+      - civictestapril

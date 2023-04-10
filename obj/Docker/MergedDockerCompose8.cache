@@ -1,0 +1,59 @@
+name: dockercompose8827871314080291226
+services:
+  civictestapril:
+    build:
+      context: C:\Users\HP\source\repos\CivicTestApril
+      dockerfile: CivicTestApril/Dockerfile
+    container_name: demo-civic-app
+    depends_on:
+      civivappdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DB_HOST: civivappdb
+      DB_NAME: DemoCivicApp
+      DB_SA_PASSWORD: password@12345#
+    image: civictestapril
+    networks:
+      civictestapril: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8004"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\HP\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\HP\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  civivappdb:
+    container_name: app-db-civic
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: password@12345#
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      civictestapril: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8005"
+      protocol: tcp
+networks:
+  civictestapril:
+    name: dockercompose8827871314080291226_civictestapril
